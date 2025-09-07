@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Select Parking</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+      integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      const uid = () => {
+        if (localStorage.getItem("uid") === null) {
+          axios.get("http://192.168.153.147:3001/getUid").then((res) => {
+            let data = res.data;
+            localStorage.setItem("uid", JSON.stringify(data));
+          });
+        }
+      };
+      uid();
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .parking-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .parking-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+        padding: 1px;
+        margin: 10px;
+        width: 180px;
+        height: 100px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .parking-option:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      }
+
+      .parking-option h2 {
+        margin-top: 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+      }
+
+      .parking-option p {
+        margin: 10px 0;
+        font-size: 18px;
+        color: #333;
+      }
+
+      .parking-option .price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+        margin-top: 10px;
+      }
+      .hidden {
+        display: none;
+      }
+      #list-item {
+        background-color: #2ecc71;
+        padding: 1rem;
+        margin: 1rem;
+        border-radius: 10px;
+        width: 6rem;
+        text-align: center;
+        font-size: larger;
+        color: #fff;
+        font-weight: bolder;
+      }
+      .parkings-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #2ecc71;
+        padding: 1rem;
+        border-radius: 5px;
+        font-size: larger;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Select Parking</h1>
+      <div class="parking-options">
+        <button class="parking-option" onclick="notAvailable()">
+          <h2>Area 1</h2>
+        </button>
+        <button class="parking-option" onclick="showParking()">
+          <h2>Area 2</h2>
+        </button>
+        <button class="parking-option" onclick="notAvailable()">
+          <h2>Area 3</h2>
+        </button>
+      </div>
+      <div id="parkings-container" class="hidden">
+        <h1>Available Parking Slots</h1>
+      </div>
+    </div>
+
+    <script>
+      const parkingsContainer = document.getElementById("parkings-container");
+      const title = document.createElement("h1");
+      title.innerHTML = "Available parking slots";
+      console.log("helo");
+      const showParking = () => {
+        parkingsContainer.classList.remove("hidden");
+        while (parkingsContainer.firstChild) {
+          parkingsContainer.removeChild(parkingsContainer.firstChild);
+        }
+        parkingsContainer.appendChild(title);
+        axios.get("http://192.168.153.147:3001/getParking?").then((res) => {
+          data = res.data;
+          console.log(data);
+          const myArr = Object.entries(data).map(([slot, value]) => ({
+            slot,
+            value,
+          }));
+
+          console.log(myArr);
+          data1 = myArr.map((e) => {
+            if (e.value === "1") {
+              parkingContainer = document.getElementById("parking-container");
+              parkingList = document.createElement("div");
+              parkingList.classList.add("parkings-list");
+              parkingList.innerHTML = e.slot;
+              parkingsContainer.appendChild(parkingList);
+              const addButton = document.createElement("button");
+              addButton.textContent = "Add";
+              addButton.classList.add("add-button");
+
+              addButton.addEventListener("click", () => {
+                // Handle the "Add" button click event here
+                // You can perform actions like adding the selected parking to a shopping cart or any other desired behavior
+                console.log("Add button clicked for parking:", e.slot);
+              });
+
+              parkingList.appendChild(addButton);
+            }
+          });
+          console.log(data1);
+        });
+      };
+      const notAvailable = () => {
+        parkingsContainer.classList.remove("hidden");
+        while (parkingsContainer.firstChild) {
+          parkingsContainer.removeChild(parkingsContainer.firstChild);
+        }
+        const message = document.createElement("h1");
+        message.innerHTML = "No parking available";
+        parkingsContainer.appendChild(message);
+      };
+    </script>
+  </body>
+</html>

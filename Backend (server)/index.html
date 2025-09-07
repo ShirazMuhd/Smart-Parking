@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Page</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .search-form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+      }
+
+      .search-form input[type="text"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        flex: 1;
+        margin-right: 10px;
+        outline: none;
+      }
+
+      .search-form button {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-form button:hover {
+        background-color: #2980b9;
+        transition: background-color 0.3s ease;
+      }
+      a {
+        color: #1e90ff;
+        text-decoration: none;
+        border: 2px solid #1e90ff;
+        transition: border 0.2s ease-in-out;
+		padding: 0.5rem;
+		border-radius: 5px;
+      }
+
+      a:hover {
+        border: 2px solid #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Search Parking</h1>
+      <form class="search-form">
+        <input type="text" placeholder="Enter City name" />
+        <a href="/main">Search</a>
+      </form>
+    </div>
+  </body>
+</html>
