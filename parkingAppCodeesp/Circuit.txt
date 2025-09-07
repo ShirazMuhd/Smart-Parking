@@ -1,0 +1,8 @@
+[ESP32]
+  +3.3V -----[10kΩ]---- Sensor1 ---- Pin 14
+  +3.3V -----[10kΩ]---- Sensor2 ---- Pin 34
+  +3.3V -----[10kΩ]---- Sensor3 ---- Pin 27
+  +3.3V -----[10kΩ]---- Sensor4 ---- Pin 35
+  Pin 2 -----[220Ω]---- LED ---- GND
+  GND ----------------- Sensors GND
+  USB ----------------- Laptop (Power)
