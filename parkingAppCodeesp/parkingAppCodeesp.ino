@@ -42,7 +42,7 @@ void loop()
     parking2 = digitalRead(18);
     parking4 = digitalRead(21);
     String query = "Slot_1=" + String(digitalRead(5)) + "&Slot_3=" + String(digitalRead(19)) + "&Slot_2=" + String(digitalRead(18)) + "&Slot_4=" + String(digitalRead(21));
-    String url = "http://parking-server-8sj1.onrender.com/updateParking?" + query;
+    String url = "https://parking-server-production.up.railway.app/updateParking?" + query;
     sendHttp(url);
   }
   delay(1000);
