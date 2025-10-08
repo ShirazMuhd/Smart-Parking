@@ -1,20 +1,22 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#define WIFI_SSID "network46"
-#define Wifi_PASSWORD "9539056214"
+#define WIFI_SSID "GNXS-39E458"
+#define Wifi_PASSWORD "Pann_123"
 
-int parking1 = digitalRead(14); 
-int parking2 = digitalRead(34);
-int parking3 = digitalRead(27); 
-int parking4 = digitalRead(35);
+int parking1 = digitalRead(5); 
+int parking2 = digitalRead(18);
+int parking3 = digitalRead(19); 
+int parking4 = digitalRead(21);
 
 
 void setup()
 {
   pinMode(2, OUTPUT);
-  pinMode(34, INPUT);
-  pinMode(35, INPUT);
+  pinMode(5, INPUT);
+  pinMode(18, INPUT);
+  pinMode(19, INPUT);
+  pinMode(21, INPUT);
   Serial.begin(9600);
   WiFi.begin(WIFI_SSID, Wifi_PASSWORD);
 
@@ -32,15 +34,15 @@ void setup()
  
 void loop()
 {
-  if (digitalRead(14) != parking1 || digitalRead(27) != parking3 || digitalRead(34) != parking2 || digitalRead(35) != parking4)
+  if (digitalRead(5) != parking1 || digitalRead(13) != parking3 || digitalRead(18) != parking2 || digitalRead(21) != parking4)
   {
     Serial.println("data changed ");
-    parking1 = digitalRead(14);
-    parking3 = digitalRead(27);
-    parking2 = digitalRead(34);
-    parking4 = digitalRead(35);
-    String query = "Slot_1=" + String(digitalRead(14)) + "&Slot_3=" + String(digitalRead(27)) + "&Slot_2=" + String(digitalRead(34)) + "&Slot_4=" + String(digitalRead(35));
-    String url = "http://192.168.43.147:3001/updateParking?" + query;
+    parking1 = digitalRead(5);
+    parking3 = digitalRead(13);
+    parking2 = digitalRead(18);
+    parking4 = digitalRead(21);
+    String query = "Slot_1=" + String(digitalRead(5)) + "&Slot_3=" + String(digitalRead(19)) + "&Slot_2=" + String(digitalRead(18)) + "&Slot_4=" + String(digitalRead(21));
+    String url = "http://parking-server-8sj1.onrender.com/updateParking?" + query;
     sendHttp(url);
   }
   delay(1000);
